@@ -5,7 +5,7 @@ class Lampa {
     constructor(id, allapot, szuloElem) {
         this.#id = id;
         this.#allapot = allapot;
-        szuloElem.append(`<div class="mezo"></div>`)
+        szuloElem.append(`<div class="mezo"></div>`);
         this.#divElem = szuloElem.children("div:last-child");
 
         this.#szinBeallit();
@@ -26,9 +26,9 @@ class Lampa {
 
     #szinBeallit() {
         if (this.#allapot) {
-            this.#divElem.css("background-color", "green")
+            this.#divElem.css("background-color", "green");
         } else {
-            this.#divElem.css("background-color", "orange")
+            this.#divElem.css("background-color", "orange");
         }
     }
 

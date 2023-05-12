@@ -3,10 +3,28 @@ import Lampa from "./Lampa.js";
 class JatekTer {
     #db;
     #allapotLista = [];
+    #lampak = [];
     #meret;
     #lepes;
     constructor() {
         this.#init();
+
+        $(window).on("kapcsolas", (t) => {
+            const LAMPA = t.detail;
+            let id = LAMPA.getId("id");
+            this.#szomszedokKeresese(id);
+
+            const LEKAPCSOLTAK = this.#ellenorzes();
+            $("#lekapcsoltak").html(LEKAPCSOLTAK);
+            if (LEKAPCSOLTAK >= this.#allapotLista.length) {
+                setTimeout(() => {
+                    alert(`Ügyes vagy!\nLépések száma: ${this.#lepes}`);
+
+                    this.#init();
+                }, 100);
+            }
+            this.#lepes++;
+        });
     }
 
     #setAllapotLista() {
@@ -17,12 +35,26 @@ class JatekTer {
     }
     
     #szomszedokKeresese(id) {
-        
+        let balSzelek = [3];
+        let jobbSzelek = [2, 5, 8];
+        const OFFSETS = [0, -1, 1, -this.#meret, this.#meret];
+        OFFSETS.forEach(offset => {
+            let aktId = id + offset; 
+            if (aktId >= 0 && aktId < this.#allapotLista.length) {
+
+                this.#lampak[aktId].setAllapot();
+                this.#lampak[aktId].getId();
+                this.#allapotLista[aktId] = !this.#allapotLista[aktId];
+
+            }
+        });
     }
     
     #init() {
+        this.#lampak = [];
         this.#lepes = 0;
         this.#meret = 3;
+        this.#db = 0;
         this.#setAllapotLista();
         const EGO_SZAMLALO = $("#lekapcsoltak");
         
@@ -30,16 +62,10 @@ class JatekTer {
         
         const SZULO = $("#mezok");
         SZULO.html("");
+
         for (let i = 0; i < this.#allapotLista.length; i++) {
-            new Lampa(i, this.#allapotLista[i], SZULO);
+            this.#lampak.push(new Lampa(i, this.#allapotLista[i], SZULO));
         }
-        
-        $(window).on("kapcsolas", (t) => {
-            const LAMPA = t.detail;
-            LAMPA.setAllapot();
-            this.#allapotLista[LAMPA.getId()] = !this.#allapotLista[LAMPA.getId()];
-            EGO_SZAMLALO.html(this.#ellenorzes());
-        });
 
         const GOMB = $("#ujJatek");
         GOMB.on("click", () => {
@@ -51,12 +77,13 @@ class JatekTer {
     #ellenorzes() {
         let db = 0;
         this.#allapotLista.forEach(allapot => {
-            db += allapot ? 1 : 0;
+            db += allapot ? 0 : 1;
         });
         return db;
     }
 
     #randomTrueFalse() {
+        return true;
         return Math.floor((Math.random() * 5) + 1) == 4;
     }
 }
