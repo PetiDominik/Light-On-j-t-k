@@ -83,7 +83,6 @@ class JatekTer {
     }
 
     #randomTrueFalse() {
-        return true;
         return Math.floor((Math.random() * 5) + 1) == 4;
     }
 }
