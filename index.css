@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+#jatekDiv {
+    margin: auto;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+}
+#jatekDiv > div {
+    margin: 10px 0;
+}
+
+#mezok {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    gap: 5%;
+}
+
+.mezo {
+    flex: 0 0 30%;
+    aspect-ratio: 1 / 1;
+    background-color: orange;
+    border-radius: 50%;
+}
+
+footer {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
