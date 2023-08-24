@@ -26,9 +26,9 @@ class Lampa {
 
     #szinBeallit() {
         if (this.#allapot) {
-            this.#divElem.css("background-color", "green");
-        } else {
             this.#divElem.css("background-color", "orange");
+        } else {
+            this.#divElem.css("background-color", "green");
         }
     }
 

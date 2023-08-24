@@ -41,11 +41,11 @@ class JatekTer {
         OFFSETS.forEach(offset => {
             let aktId = id + offset; 
             if (aktId >= 0 && aktId < this.#allapotLista.length) {
-
-                this.#lampak[aktId].setAllapot();
-                this.#lampak[aktId].getId();
-                this.#allapotLista[aktId] = !this.#allapotLista[aktId];
-
+                if ((Math.floor(aktId / 3)  == Math.floor(id / 3)) || (aktId % 3 == id % 3)) {
+                    this.#lampak[aktId].setAllapot();
+                    this.#lampak[aktId].getId();
+                    this.#allapotLista[aktId] = !this.#allapotLista[aktId];
+                }
             }
         });
     }
